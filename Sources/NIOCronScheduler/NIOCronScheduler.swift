@@ -14,6 +14,11 @@ public class NIOCronScheduler {
     }
     
     @discardableResult
+    public static func schedule<N: NIOCronGenericSchedulable>(_ job: N.Type, on container: N.Container) throws -> NIOCronJob {
+        return try schedule(job.expression, on: container.eventLoop) { job.task(on: container) }
+    }
+    
+    @discardableResult
     public static func schedule(_ expression: String, on eventLoop: EventLoop, _ task: @escaping () throws -> Void) throws -> NIOCronJob {
         return try schedule(expression: expression, on: eventLoop, task: task, offset: 0)
     }
@@ -33,21 +38,35 @@ public class NIOCronScheduler {
     }
 }
 
+public protocol NIOCronExpressable {
+    static var expression: String { get }
+}
+
+public protocol NIOCronEventLoopable {
+    var eventLoop: EventLoop { get }
+}
+
 public class NIOCronJob {
     init () {}
     fileprivate var onCancel: () -> Void = {}
     public func cancel() { onCancel() }
 }
 
-public protocol NIOCronSchedulable {
-    static var expression: String { get }
+public protocol NIOCronSchedulable: NIOCronExpressable {
     static func task()
 }
 
-public protocol NIOCronFutureSchedulable {
+public protocol NIOCronFutureSchedulable: NIOCronExpressable {
     associatedtype T
     
-    static var expression: String { get }
     @discardableResult
     static func task(on eventLoop: EventLoop) -> EventLoopFuture<T>
+}
+
+public protocol NIOCronGenericSchedulable: NIOCronExpressable {
+    associatedtype Container: NIOCronEventLoopable
+    associatedtype Result
+    
+    @discardableResult
+    static func task(on container: Container) -> EventLoopFuture<Result>
 }
