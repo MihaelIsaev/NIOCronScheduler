@@ -59,7 +59,7 @@ struct Job2: NIOCronFutureSchedulable {
 let job2 = try? NIOCronScheduler.schedule(Job2.self, on: eventLoop)
 ```
 
-Scheduled job may be called just by calling `.cancel()` on it
+Scheduled job may be cancelled just by calling `.cancel()` on it
 
 #### For Vapor users
 
