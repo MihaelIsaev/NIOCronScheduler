@@ -27,7 +27,7 @@ public class NIOCronScheduler {
     private static func schedule(expression: String, on eventLoop: EventLoop, task: @escaping () throws -> Void, offset: TimeInterval) throws -> NIOCronJob {
         let cron = try SwifCron(expression)
         let nextDate = try cron.next(from: Date(timeIntervalSinceNow: offset))
-        let secondsTo = nextDate.timeIntervalSince1970 - Date().timeIntervalSince1970
+        let secondsTo = nextDate.timeIntervalSince1970 - Date().timeIntervalSince1970 + 1
         let job = NIOCronJob()
         let task = eventLoop.scheduleTask(in: .seconds(Int(secondsTo))) {
             job.onCancel = try self.schedule(expression: expression, on: eventLoop, task: task, offset: 1).cancel
