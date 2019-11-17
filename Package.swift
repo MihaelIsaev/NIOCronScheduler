@@ -1,4 +1,4 @@
-// swift-tools-version:4.2
+// swift-tools-version:5.1
 
 import PackageDescription
 
@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         // Event-driven network application framework for high performance protocol servers & clients, non-blocking.
-        .package(url: "https://github.com/apple/swift-nio.git", from: "1.12.0"),
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.0.0"),
         // ⏱ Simple pure swift cron expressions parser
         .package(url: "https://github.com/MihaelIsaev/SwifCron.git", from:"1.3.0"),
     ],

@@ -2,5 +2,5 @@ import XCTest
 @testable import NIOCronScheduler
 
 final class NIOCronSchedulerTests: XCTestCase {
-    static var allTests = []
+    static var allTests: [String] = []
 }
