@@ -20,7 +20,7 @@ public class NIOCronScheduler {
     
     @discardableResult
     public static func schedule(_ expression: String, on eventLoop: EventLoop, _ task: @escaping () throws -> Void) throws -> NIOCronJob {
-        return try schedule(expression: expression, on: eventLoop, task: task, offset: 0)
+        return try schedule(expression: expression, on: eventLoop, task: task, offset: 1)
     }
     
     @discardableResult
@@ -30,7 +30,7 @@ public class NIOCronScheduler {
         let secondsTo = nextDate.timeIntervalSince1970 - Date().timeIntervalSince1970 + 1
         let job = NIOCronJob()
         let task = eventLoop.scheduleTask(in: .seconds(Int64(secondsTo))) {
-            job.onCancel = try self.schedule(expression: expression, on: eventLoop, task: task, offset: 0).cancel
+            job.onCancel = try self.schedule(expression: expression, on: eventLoop, task: task, offset: 1).cancel
             try task()
         }
         job.onCancel = task.cancel
