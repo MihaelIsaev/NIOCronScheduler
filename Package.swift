@@ -11,7 +11,7 @@ let package = Package(
         // Event-driven network application framework for high performance protocol servers & clients, non-blocking.
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.10.0"),
         // ⏱ Simple pure swift cron expressions parser
-        .package(url: "https://github.com/MihaelIsaev/SwifCron.git", from:"1.3.0"),
+        .package(url: "https://github.com/MihaelIsaev/SwifCron.git", from: "2.0.0"),
     ],
     targets: [
         .target(name: "NIOCronScheduler", dependencies: ["NIO", "SwifCron"]),
