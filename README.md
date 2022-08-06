@@ -26,6 +26,8 @@ Built for NIO2
 
 ```swift
 .package(url: "https://github.com/MihaelIsaev/NIOCronScheduler.git", from:"2.0.0")
+// or for seconds support
+.package(url: "https://github.com/MihaelIsaev/NIOCronScheduler.git", from:"2.0.0-s.1.0.0")
 ```
 In your target's dependencies add `"NIOCronScheduler"` e.g. like this:
 ```swift
@@ -38,13 +40,13 @@ In your target's dependencies add `"NIOCronScheduler"` e.g. like this:
 import NIOCronScheduler
 
 /// Simplest way is to use closure
-let job = try? NIOCronScheduler.schedule("* * * * *", on: eventLoop) {
+let job = try? NIOCronScheduler.schedule("* * * * *", on: eventLoop) { // add one more * to launch every second
     print("Closure fired")
 }
 
 /// Or create a struct that conforms to NIOCronSchedulable
 struct Job1: NIOCronSchedulable {
-    static var expression: String { return "* * * * *" }
+    static var expression: String { return "* * * * *" } // add one more * to launch every second
 
     static func task() {
         print("Job1 fired")
@@ -55,7 +57,7 @@ let job1 = try? NIOCronScheduler.schedule(Job1.self, on: eventLoop)
 /// Or create a struct that conforms to NIOCronFutureSchedulable
 /// to be able to return a future
 struct Job2: NIOCronFutureSchedulable {
-    static var expression: String { return "*/2 * * * *" }
+    static var expression: String { return "*/2 * * * *" } // add one more * to launch every 2nd second
 
     static func task(on eventLoop: EventLoop) -> EventLoopFuture<Void> { //Void is not a requirement, you may return any type
         return eventLoop.newSucceededFuture(result: ()).always {
