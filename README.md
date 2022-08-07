@@ -25,9 +25,7 @@ Built for NIO2
 ### Swift Package Manager
 
 ```swift
-.package(url: "https://github.com/MihaelIsaev/NIOCronScheduler.git", from:"2.0.0")
-// or for seconds support
-.package(url: "https://github.com/MihaelIsaev/NIOCronScheduler.git", from:"2.0.0-s.1.0.0")
+.package(url: "https://github.com/MihaelIsaev/NIOCronScheduler.git", from:"2.1.0")
 ```
 In your target's dependencies add `"NIOCronScheduler"` e.g. like this:
 ```swift
